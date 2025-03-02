@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="huh?">
+    <title>i see you :</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            background-color: #2e2e2e;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('background/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(30%) blur(1px);
+            z-index: -2;
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-top: -50px; /* Shift the header up */
+        }
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            text-transform: uppercase;
+            animation: fadeIn 2s ease-in-out;
+        }
+        h1 span {
+            color: #fdbb2d;
+            animation: colorCycle 5s infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes colorCycle {
+            0%, 100% { color: #fdbb2d; }
+            33% { color: #b21f1f; }
+            66% { color: #1a2a6c; }
+        }
+        .card {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            margin-top: 20px; /* Shift the card up */
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+        .card h2 {
+            margin: 0 0 10px;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        .card .buttons {
+            margin-top: 20px;
+        }
+        .card .buttons a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #ffffff;
+            background: transparent;
+            border: 1px solid #ffffff;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        .card .buttons a:hover {
+            background: #ffffff;
+            color: #2e2e2e;
+        }
+        .rich-presence {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            margin-top: 20px; /* Space between card and rich presence box */
+            display: flex; /* Use flexbox for layout */
+            align-items: center; /* Center items vertically */
+        }
+        .activity-image {
+            width: 60px; /* Smaller size */
+            height: 60px; /* Smaller size */
+            border-radius: 10px; /* Rounded edges */
+            margin-right: 10px; /* Space between image and text */
+        }
+        .activity-details {
+            display: flex;
+            flex-direction: column; /* Stack text vertically */
+            line-height: 1.2; /* Adjust line height for closer spacing */
+        }
+        .activity-details h3 {
+            margin: 0 0 5px; /* Space below the title */
+        }
+        .activity-details p {
+            margin: 2px 0; /* Closer spacing between paragraphs */
+        }
+        .bold-underline {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            background-color: #ffffff; /* White dots */
+            border-radius: 50%; /* Make them circular */
+            pointer-events: none;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" loop autoplay>
+        <source src="music/narvent.mp3" type="audio/mpeg"> <!-- Replace with your local MP3 file name -->
+        Your browser does not support the audio element.
+    </audio>
+    <div id="particles-js"></div>
+    <header>
+        <h1><span> Hi.</span></h1>
+        <div id="profile-card" class="card">
+            <img src="background/avatar.jpeg" alt="Profile Picture">
+            <h2>A</h2>
+            <p>Developer / Coder / Student</p>
+            <div class="buttons">
+                <a href="https://discord.gg/Yk75xKCyDb" target="_blank">Discord</a>
+                <a href="https://www.instagram.com/ray_dc_2421/" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <div class="rich-presence" id="rich-presence">
+            <img id="activity-image" class="activity-image" src="https://i.gifer.com/5RT9.gif" alt="Activity Image" />
+            <div class="activity-details">
+                <h3>Discord Status</h3>
+                <p id="status" class="bold-underline">Loading...</p>
+                <p id="details"></p>
+                <p id="timestamps"></p>
+            </div>
+        </div>
+    </header>
+    <script>
+        const snowflakeCount = 20; // Increased quantity of snowflakes
+
+        function createSnowflakes() {
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.width = Math.random() * 5 + 5 + 'px'; // Random width between 5px and 10px
+                snowflake.style.height = snowflake.style.width; // Make height equal to width for circular shape
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 5 + 5 + 's'; // Slower speed between 5s and 10s
+                snowflake.style.transform = `translateX(${Math.random() * 50 - 25}vw)`; // Random horizontal movement
+                document.body.appendChild(snowflake);
+
+                // Remove snowflake after it falls
+                snowflake.addEventListener('animationend', () => {
+                    snowflake.remove();
+                });
+            }
+        }
+
+        // Create snowflakes initially
+        createSnowflakes();
+
+        // Set an interval to maintain the same number of snowflakes
+        setInterval(() => {
+            const existingSnowflakes = document.querySelectorAll('.snowflake');
+            if (existingSnowflakes.length < snowflakeCount) {
+                createSnowflakes();
+            }
+        }, 1000); // Check every second
+
+      // Fetch Discord Rich Presence using Lanyard API
+        async function fetchDiscordPresence() {
+            try {
+                const response = await fetch('https://api.lanyard.rest/v1/users/852928602735640576'); // Replace with your Discord user ID
+                const data = await response.json();
+                const statusElement = document.getElementById('status');
+                const detailsElement = document.getElementById('details');
+                const timestampsElement = document.getElementById('timestamps');
+                const activityImageElement = document.getElementById('activity-image');
+
+                if (data.data && data.data.activities.length > 0) {
+                    const activity = data.data.activities[0];
+                    const activityName = activity.name;
+                    const activityType = activity.type === 0 ? 'Playing' : activity.type === 1 ? 'Streaming' : activity.type === 2 ? 'Listening to' : 'Watching';
+                    const state = activity.state || 'No state';
+                    const details = activity.details || 'No details';
+                    const timestamps = activity.start ? formatTimestamp(activity.timestamps.start) : '▶️';
+                    const imageUrl = activity.assets.large_image ? `https://i.gifer.com/5RT9.gif` : ''; // Use the provided image URL
+
+                    statusElement.textContent = `${activityType} ${activityName}`;
+                    detailsElement.textContent = `${state} | ${details}`;
+                    timestampsElement.textContent = `${timestamps}`;
+                    activityImageElement.src = imageUrl; // Set the image source
+                } else {
+                    statusElement.textContent = 'Not currently active.';
+                    detailsElement.textContent = '';
+                    timestampsElement.textContent = '';
+                    activityImageElement.src = 'https://i.gifer.com/5RT9.gif'; // Set the permanent image
+                }
+            } catch (error) {
+                console.error('Error fetching Discord presence:', error);
+                document.getElementById('status').textContent = 'Error loading status.';
+                document.getElementById('details').textContent = '';
+                document.getElementById('timestamps').textContent = '';
+                document.getElementById('activity-image').src = 'https://i.gifer.com/5RT9.gif'; // Set the permanent image
+            }
+        }
+
+        // Format timestamp to HH:MM:SS
+        function formatTimestamp(timestamp) {
+            const date = new Date(timestamp);
+            const hours = String(date.getUTCHours()).padStart(2, '0');
+            const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Call the function to fetch Discord presence
+        fetchDiscordPresence();
+
+        // Play background music when the page loads
+        window.onload = function() {
+            const audio = document.getElementById('background-music');
+            audio.play().catch(error => {
+                console.error('Error playing audio:', error);
+            });
+        };
+    </script>
+</body>
+</html>
